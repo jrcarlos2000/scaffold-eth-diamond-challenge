@@ -1,6 +1,8 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { getSelectors, FacetCutAction, getDiamond } from "../utils/helpers";
+import { getSelectors, FacetCutAction, getDiamond, ONE_ETHER } from "../utils/helpers";
+import "dotenv";
+
 /**
  * Deploys a contract named "YourContract" using the deployer account and
  * constructor arguments set to the deployer address
@@ -8,12 +10,13 @@ import { getSelectors, FacetCutAction, getDiamond } from "../utils/helpers";
  * @param hre HardhatRuntimeEnvironment object.
  */
 const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+  if (parseInt(process.env.CHECKPOINT!) < 0) {
+    return;
+  }
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
-
     When deploying to live networks (e.g `yarn deploy --network goerli`), the deployer account
     should have sufficient balance to pay for the gas fees for contract creation.
-
     You can generate a random account with `yarn generate` which will fill DEPLOYER_PRIVATE_KEY
     with a random private key in the .env file (then used on hardhat.config.ts)
     You can run the `yarn account` command to check your balance in every network.
@@ -48,7 +51,7 @@ const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnviro
   // init function call for the DiamondInit ().
 
   // TODO  : modify if your init is diff
-  const functionCall = cDiamondInit.interface.encodeFunctionData("init");
+  const functionCall = cDiamondInit.interface.encodeFunctionData("init(uint256)", [ONE_ETHER]);
   // Setting arguments that will be used in the diamond constructor
   const diamondArgs = {
     owner: deployer,
@@ -63,8 +66,7 @@ const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnviro
     args: [facetCuts, diamondArgs],
   });
 
-  const cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet"], hre);
-  console.log(cDiamond);
+  const cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet"]);
 
   // TODO : Add new facets
 

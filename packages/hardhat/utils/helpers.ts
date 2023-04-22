@@ -1,13 +1,15 @@
 import { FormatTypes } from "@ethersproject/abi";
 import { Contract } from "ethers";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+import hre from "hardhat";
 import { CrowdfundrDiamond, DiamondCutFacet } from "../typechain-types";
 import { ethers } from "hardhat";
 export type GeneralContract = DiamondCutFacet | CrowdfundrDiamond;
 
+export const SECONDS_IN_DAY: number = 60 * 60 * 24;
 export const FacetCutAction = { Add: 0, Replace: 1, Remove: 2 };
+export const ONE_ETHER = ethers.utils.parseEther("1.0");
 
-export async function getDiamond(facets: Array<string>, hre: HardhatRuntimeEnvironment): Promise<Contract> {
+export async function getDiamond(facets: Array<string>): Promise<Contract> {
   const cDiamond = await hre.ethers.getContract("CrowdfundrDiamond");
   const generalABI: Array<string> = cDiamond.interface.format(FormatTypes.JSON) as Array<string>;
   for (const Facet of facets) {
