@@ -21,7 +21,7 @@ export const useScaffoldContract = <TContractName extends ContractName>({
 
   const contract = useContract({
     address: deployedContractData?.address,
-    abi: deployedContractData?.abi,
+    abi: deployedContractData?.abi as any,
     signerOrProvider: signerOrProvider === undefined ? provider : signerOrProvider,
   });
 
