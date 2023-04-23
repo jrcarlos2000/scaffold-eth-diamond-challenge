@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { NextPage } from "next";
+import { DiamondHeader } from "~~/components/diamond/DiamondHeader";
 import { ContractUI } from "~~/components/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 import { getContractNames, getMainDiamondContract } from "~~/utils/scaffold-eth/contractNames";
@@ -18,6 +19,7 @@ const Debug: NextPage = () => {
 
   return (
     <>
+      <DiamondHeader />
       <>
         {contractNames.length === 0 ? (
           <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
