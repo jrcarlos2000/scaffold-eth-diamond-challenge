@@ -28,10 +28,11 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
   const configuredNetwork = getTargetNetwork();
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
+  const { data: deployedData, isLoading: deployedLoading } = useDeployedContractInfo("CrowdfundrDiamond");
   const networkColor = useNetworkColor();
 
   const contract = useContract({
-    address: deployedContractData?.address,
+    address: deployedData?.address,
     abi: deployedContractData?.abi as Abi,
     signerOrProvider: provider,
   });
@@ -51,7 +52,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
     [contract, displayedContractFunctions],
   );
 
-  if (deployedContractLoading) {
+  if (deployedContractLoading && deployedLoading) {
     return (
       <div className="mt-14">
         <Spinner width="50px" height="50px" />
@@ -59,7 +60,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
     );
   }
 
-  if (!deployedContractData) {
+  if (!deployedContractData && !deployedData) {
     return (
       <p className="text-3xl mt-14">
         {`No contract found by the name of "${contractName}" on chain "${configuredNetwork.name}"!`}
@@ -75,10 +76,10 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
             <div className="flex">
               <div className="flex flex-col gap-1">
                 <span className="font-bold">{contractName}</span>
-                <Address address={deployedContractData.address} />
+                <Address address={deployedData?.address} />
                 <div className="flex gap-1 items-center">
                   <span className="font-bold text-sm">Balance:</span>
-                  <Balance address={deployedContractData.address} className="px-0 h-1.5 min-h-[0.375rem]" />
+                  <Balance address={deployedContractData?.address} className="px-0 h-1.5 min-h-[0.375rem]" />
                 </div>
               </div>
             </div>
