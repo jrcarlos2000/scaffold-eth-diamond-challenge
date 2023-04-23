@@ -85,5 +85,37 @@ describe("YourContract", function () {
   });
   describe("Checkpoint 2", () => {
     if (parseInt(checkpoint) != 2) return;
+    before(async () => {
+      cDiamond = await getDiamond([
+        "DiamondCutFacet",
+        "DiamondLoupeFacet",
+        "MainFacet",
+        "OwnershipFacet",
+        "WithdrawFacet",
+      ]);
+    });
+    it("Contributes right amount", async () => {
+      const diamondBalanceBefore = await ethers.provider.getBalance(cDiamond.address);
+      await cDiamond.connect(alice).contribute({ value: ONE_ETHER });
+      const diamondBalanceAfter = await ethers.provider.getBalance(cDiamond.address);
+      expect(diamondBalanceAfter).to.equal(diamondBalanceBefore.add(ONE_ETHER));
+    });
+    it("Not Owner cannot withdraw", async () => {
+      await expect(cDiamond.connect(alice).claim()).to.be.reverted;
+    });
+    it("Owner cannot claim because not goalAmount", async () => {
+      await expect(cDiamond.claim()).to.be.revertedWith("Main: goal hasnt been reached or set");
+    });
+
+    it("Contributor cannot refund because deadlined hasnt passed", async () => {
+      await expect(cDiamond.connect(alice).refund()).to.be.revertedWith("WithdrawFacet: Deadline has not been reached");
+    });
+    it("Owner can claim because goal amount reached", async () => {
+      await expect(cDiamond.claim()).to.be.revertedWith("Main: goal hasnt been reached or set");
+      await cDiamond.connect(alice).contribute({ value: ONE_ETHER.mul(9) }); // amount reached here
+      await cDiamond.claim();
+      const balance = await ethers.provider.getBalance(cDiamond.address);
+      expect(balance).to.equal(0);
+    });
   });
 });
