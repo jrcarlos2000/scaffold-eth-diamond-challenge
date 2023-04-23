@@ -14,6 +14,8 @@ import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth"
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
+// import { getMainDiamondContract } from "~~/utils/scaffold-eth/contractNames";
+
 type ContractUIProps = {
   contractName: ContractName;
   className?: string;
@@ -26,6 +28,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
   const provider = useProvider();
   const [refreshDisplayVariables, setRefreshDisplayVariables] = useState(false);
   const configuredNetwork = getTargetNetwork();
+  // const mainDiamondContractName: ContractName = getMainDiamondContract();
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
   const { data: deployedData, isLoading: deployedLoading } = useDeployedContractInfo("CrowdfundrDiamond");
