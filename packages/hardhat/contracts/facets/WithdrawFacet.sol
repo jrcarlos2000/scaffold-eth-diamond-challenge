@@ -14,22 +14,23 @@ contract WithdrawFacet {
 
     // TODO : enforce goal has not been reached
     bool hasBeenReached = LibCrowdfundr._goalHasBeenReached();
-    require(!hasBeenReached, "WithdrawFacet: Cannot withdraw because goal amount has not been reached");
+    require(!hasBeenReached, "WithdrawFacet: Cannot withdraw because goal amount has been reached");
+
     ds.contributionPerUser[msg.sender] = 0;
 
     payable(msg.sender).transfer(toSend);
   }
 
-  function claimAmount(uint256 _amount) external {
-    LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
-    LibWithdrawFacet.WithdrawStorage storage ws = LibWithdrawFacet.getStorage();
-    LibDiamond.enforceIsContractOwner();
-    require(LibCrowdfundr._goalHasBeenReached(), "WithdrawFacet: goal wasnt reached");
-    require(_amount <= ds.contributionAmount - ws.claimedAmount, "Not enough funds to claim");
-    require(_amount <= address(this).balance, "Not enough funds in the contract");
-    ws.claimedAmount += _amount;
-    payable(msg.sender).transfer(_amount);
-  }
+  //   function claimAmount(uint256 _amount) external {
+  //     LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
+  //     LibWithdrawFacet.WithdrawStorage storage ws = LibWithdrawFacet.getStorage();
+  //     LibDiamond.enforceIsContractOwner();
+  //     require(LibCrowdfundr._goalHasBeenReached(), "WithdrawFacet: goal wasnt reached");
+  //     require(_amount <= ds.contributionAmount - ws.claimedAmount, "Not enough funds to claim");
+  //     require(_amount <= address(this).balance, "Not enough funds in the contract");
+  //     ws.claimedAmount += _amount;
+  //     payable(msg.sender).transfer(_amount);
+  //   }
 
   function setDeadline(uint256 _buffer) external {
     LibDiamond.enforceIsContractOwner();

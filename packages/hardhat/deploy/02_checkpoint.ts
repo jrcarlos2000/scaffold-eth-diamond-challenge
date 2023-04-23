@@ -3,30 +3,16 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { getSelectors, FacetCutAction, getDiamond, SECONDS_IN_DAY } from "../utils/helpers";
 import "dotenv";
 
-/**
- * Deploys a contract named "YourContract" using the deployer account and
- * constructor arguments set to the deployer address
- *
- * @param hre HardhatRuntimeEnvironment object.
- */
 const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  if (parseInt(process.env.CHECKPOINT!) < 1) {
-    return;
-  }
-  /*
-    On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
-    When deploying to live networks (e.g `yarn deploy --network goerli`), the deployer account
-    should have sufficient balance to pay for the gas fees for contract creation.
-    You can generate a random account with `yarn generate` which will fill DEPLOYER_PRIVATE_KEY
-    with a random private key in the .env file (then used on hardhat.config.ts)
-    You can run the `yarn account` command to check your balance in every network.
-  */
+  // TODO : Remove following line
+  // return;
+
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
   let cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet"]);
 
-  // TODO : Add new facets
+  // IMPORTANT : Check how a facet is added
 
   const facetsToAdd = ["WithdrawFacet"];
 
@@ -53,7 +39,9 @@ const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnviro
     await tx.wait();
   }
   cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet", "WithdrawFacet"]);
-  const tx = await cDiamond.setDeadline(SECONDS_IN_DAY);
+  SECONDS_IN_DAY;
+  // TODO : change the deadline
+  const tx = await cDiamond.setDeadline(120);
   await tx.wait();
 };
 
