@@ -83,4 +83,7 @@ describe("YourContract", function () {
       console.log(bob.address);
     });
   });
+  describe("Checkpoint 2", () => {
+    if (parseInt(checkpoint) != 2) return;
+  });
 });
