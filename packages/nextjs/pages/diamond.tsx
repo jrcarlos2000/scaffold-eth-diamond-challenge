@@ -28,13 +28,13 @@ const Debug: NextPage = () => {
         ) : (
           <>
             <div className="text-center mt-8 bg-secondary p-10 mt-0">
-              <h2 className="text-4xl my-0">Diamond Pattern Contracts</h2>
+              <h2 className="text-4xl my-0">Diamond Smart Contract</h2>
             </div>
             <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
               <ContractUI contractName={mainDiamondContractName} />
             </div>
             <div className="text-center mt-8 bg-secondary p-10">
-              <h2 className="text-4xl my-0">EIP 2535 Facet Contracts</h2>
+              <h2 className="text-4xl my-0">EIP-2535 Facets</h2>
             </div>
             <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
               <div className="flex flex-row gap-2 w-full max-w-7xl pb-1 px-6 lg:px-10 flex-wrap">
