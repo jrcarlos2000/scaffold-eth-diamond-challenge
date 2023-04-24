@@ -13,8 +13,7 @@ import {
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
-
-// import { getMainDiamondContract } from "~~/utils/scaffold-eth/contractNames";
+import { getMainDiamondContract } from "~~/utils/scaffold-eth/contractNames";
 
 type ContractUIProps = {
   contractName: ContractName;
@@ -28,14 +27,14 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
   const provider = useProvider();
   const [refreshDisplayVariables, setRefreshDisplayVariables] = useState(false);
   const configuredNetwork = getTargetNetwork();
-  // const mainDiamondContractName: ContractName = getMainDiamondContract();
+  const mainDiamondContractName: ContractName = getMainDiamondContract();
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-  const { data: deployedData, isLoading: deployedLoading } = useDeployedContractInfo("CrowdfundrDiamond");
+  const { data: mainDiamondData, isLoading: mainDiamondLoading } = useDeployedContractInfo(mainDiamondContractName);
   const networkColor = useNetworkColor();
 
   const contract = useContract({
-    address: deployedData?.address,
+    address: mainDiamondData?.address,
     abi: deployedContractData?.abi as Abi,
     signerOrProvider: provider,
   });
@@ -55,7 +54,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
     [contract, displayedContractFunctions],
   );
 
-  if (deployedContractLoading && deployedLoading) {
+  if (deployedContractLoading && mainDiamondLoading) {
     return (
       <div className="mt-14">
         <Spinner width="50px" height="50px" />
@@ -63,7 +62,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
     );
   }
 
-  if (!deployedContractData && !deployedData) {
+  if (!deployedContractData && !mainDiamondData) {
     return (
       <p className="text-3xl mt-14">
         {`No contract found by the name of "${contractName}" on chain "${configuredNetwork.name}"!`}
@@ -79,7 +78,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
             <div className="flex">
               <div className="flex flex-col gap-1">
                 <span className="font-bold">{contractName}</span>
-                <Address address={deployedData?.address} />
+                <Address address={deployedContractData?.address} />
                 <div className="flex gap-1 items-center">
                   <span className="font-bold text-sm">Balance:</span>
                   <Balance address={deployedContractData?.address} className="px-0 h-1.5 min-h-[0.375rem]" />
