@@ -135,7 +135,7 @@ Ok, so at this point your contributors can `contribute` and `refund` their asset
 
 - [✅] Check the tests
 
-close the chain terminal and open a new one
+### **Close the chain terminal and open 2 new ones**
 
 ```bash
 yarn chain
