@@ -47,9 +47,15 @@ yarn deploy  (to compile, deploy, and publish your contracts to the frontend)
 
 > This will setup a basic Crowdfunding Diamond that only allows users to `contribute` and the owner to `claim`.
 
----
+### **you can inspect your diamond by clicking on `debug diamond`, the list of facets added to it will be displayed in this way**
 
-### Checkpoint 1: 💸 Contribute some ETH
+![image](./assets/facets.png)
+
+### **you can see your diamond as a floating point on the right side or on the top**
+
+<img src="./assets/diamond.png"  width="300" height="200">
+
+## Checkpoint 1: 💸 Contribute some ETH
 
 🔍 Inspect the code in the `MainFacet` contract in `packages/hardhat/contracts/facets`
 
@@ -57,13 +63,13 @@ yarn deploy  (to compile, deploy, and publish your contracts to the frontend)
 
 💸 Grab some funds from the faucet and try sending some ETH to the crowdfunding
 
-![image](https://user-images.githubusercontent.com/12072395/168866845-bfc07d54-4722-44a8-ae07-544e001ceeaa.png)
+<img src="./assets/faucet.png"  width="200" height="80">
 
 > Let's start by sending 1 ETH
 
 > > Can you guess why is this happening ?
 
-> > This wont work so your **TASK 1** is to change the minimum `contribution amount` in TODO: line for the code
+> > This wont work so your **TASK 1** is to change the minimum `contribution amount` in TODO: line inside `01_checkpoint.ts`.
 
 > After you are done with this part : run `yarn deploy --reset`
 
@@ -71,14 +77,14 @@ yarn deploy  (to compile, deploy, and publish your contracts to the frontend)
 
 > As the owner you should be able to `claim()` all the funds added to this contract
 
-#### 🥅 Goals
+### 🥅 Goals
 
 - [x] Understand how the initalization of a diamond takes place.
 - [x] Get acquainted with the essential setup of Diamonds.
 
 ---
 
-### Checkpoint 2: 🙏 Lets be fair to the contributors
+## Checkpoint 2: 🙏 Lets be fair to the contributors
 
 Contributors have started to complain if they can actually take their money back from the Crowdfundr contract, the owner can take the money but the contributors' money is locked.
 
@@ -92,9 +98,9 @@ Contributors have started to complain if they can actually take their money back
 
 > > Can you guess whats wrong here?
 
-#### ⚔️ Checkpoint 2 side quests
+### ⚔️ Checkpoint 2 side quests
 
-In a crowdfunding contract, usually the contributors will be able to withdraw their amount after the deadline has passed. So lets set a deadline and enforce it inside the function `refund()`
+In a crowdfunding contract, usually the contributors will be able to `refund()` their amount after the deadline has passed. So lets set a deadline and enforce it inside the function `refund()`
 
 - [x] call `setDeadline(VALUE)` at the bottom of `02_checkpoint.ts`, the value passed is in seconds, lets set it to 120 Seconds.
 
@@ -102,13 +108,13 @@ In a crowdfunding contract, usually the contributors will be able to withdraw th
 
 - [x] Redeploy
 
-- [x] within 2 minute try contributing some ETH and withdraw , see if withdraw function fails until the 2 minute has passed from deployment
+- [x] within 2 minute try contributing some ETH and call `refund` , see if `refund` function fails until the 2 minute has passed from deployment
 
 ---
 
-### Checkpoint 3: 💵 Claiming when goal amount has been reached
+## Checkpoint 3: 💵 Claiming when goal amount has been reached
 
-Ok, so at this point your contributors can `contribute` and `withdraw` their assets when the deadline has been reached. But there should be some rules for the owner, owner can only withdraw if the goal has been reached. Likewise, contributors only would be able to withdraw if the goal hasn't been reached
+Ok, so at this point your contributors can `contribute` and `refund` their assets when the deadline has been reached. But there should be some rules for the owner, owner can only withdraw if the goal has been reached. Likewise, contributors only would be able to `refund` if the goal hasn't been reached
 
 🔍 Inspect the code in the `ConfigFacet.sol` contract in `packages/hardhat/contracts/facets`
 
@@ -120,12 +126,12 @@ Ok, so at this point your contributors can `contribute` and `withdraw` their ass
 
 - [x] Inside `03_checkpoint.ts` , call target amount to set the value. Lets try 10 ETH.
 
-#### 🥅 Goals
+### 🥅 Goals
 
 - [✅] Test out the contract, do all your functions work as expected
 - [✅] Interact and play around with the facets, get acquainted with their functions
 
-#### ⚔️ Side Quest
+### ⚔️ Side Quest
 
 - [✅] Check the tests
 
@@ -149,7 +155,7 @@ yarn hardhat:test
 
 🛰 Use a faucet to fund your **deployer address** (run `yarn account` again to view balances)
 
-> ⚠️ Make sure you fund your account with enough Eth! 
+> ⚠️ Make sure you fund your account with enough Eth!
 
 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
 
