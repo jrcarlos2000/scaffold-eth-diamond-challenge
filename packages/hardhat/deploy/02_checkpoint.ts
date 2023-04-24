@@ -40,9 +40,9 @@ const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnviro
   }
   cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet", "WithdrawFacet"]);
   SECONDS_IN_DAY;
-  // TODO : change the deadline
-  const tx = await cDiamond.setDeadline(120);
-  await tx.wait();
+  // TODO : change the deadline - 2 Seconds
+  // const tx = await cDiamond.setDeadline(120);
+  // await tx.wait();
 };
 
 export default deployContract;

@@ -1,6 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { getSelectors, FacetCutAction, getDiamond, ONE_ETHER } from "../utils/helpers";
+import { getDiamond } from "../utils/helpers";
 import "dotenv";
 
 const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
@@ -10,45 +10,29 @@ const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  let cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet"]);
+  const cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet"]);
 
-  // TODO : Add new facets
+  deployer;
+  cDiamond;
+  deploy;
 
-  const facetsToAdd = ["ConfigFacet"];
+  // TODO : Add the new facet
+  // HINT : follow the implementations in deploy/02_checkpoint or deploy/01_checkpoint
 
-  for (const facet of facetsToAdd) {
-    await deploy(facet, {
-      from: deployer,
-      log: true,
-      autoMine: true,
-    });
-    const cFacet = await hre.ethers.getContract(facet);
-    const selectors = getSelectors(cFacet); // selectors of this facet
-    const tx = await cDiamond.diamondCut(
-      [
-        {
-          facetAddress: cFacet.address,
-          action: FacetCutAction.Add,
-          functionSelectors: selectors,
-        },
-      ],
-      hre.ethers.constants.AddressZero,
-      "0x",
-      { gasLimit: 800000 },
-    );
-    await tx.wait();
-  }
-  cDiamond = await getDiamond([
+  // TODO : Call diamond, and include the newly added facet
+  /*
+    cDiamond = await getDiamond([
     "DiamondCutFacet",
     "OwnershipFacet",
     "DiamondLoupeFacet",
     "WithdrawFacet",
     "ConfigFacet",
   ]);
+  */
 
   // TODO : Set the goal amount to 10 ETH
-  const tx = await cDiamond.setGoalAmount(ONE_ETHER.mul(10));
-  await tx.wait();
+  // const tx = await cDiamond.setGoalAmount(ONE_ETHER.mul(10));
+  // await tx.wait();
 };
 
 export default deployContract;
