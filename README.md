@@ -10,7 +10,7 @@
 
 > 😱 Seems like contributors will never be able to get their money back, your role is to fix this and set up some conditions and add some functionalities to your crowdfunding contract.
 
-> 💬 Meet other builders working on this challenge and get help in the [Challenge 8 telegram](https://t.me/+3StA0aBSArFjNjUx)!
+> 💬 Meet other builders working on this challenge and get help in the [Challenge 8 telegram](add telegram here)!
 
 ---
 
@@ -18,12 +18,12 @@
 
 Want a fresh cloud environment? Click this to open a gitpod workspace, then skip to Checkpoint 1 after the tasks are complete.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/scaffold-eth/scaffold-eth-challenges/tree/challenge-3-dice-game)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/scaffold-eth/scaffold-eth-challenges/tree/challenge-8-diamond-pattern)
 
 ```bash
-git clone https://github.com/scaffold-eth/scaffold-eth-challenges.git challenge-3-dice-game
-cd challenge-3-dice-game
-git checkout challenge-3-dice-game
+git clone https://github.com/scaffold-eth/scaffold-eth-challenges.git challenge-8-diamond-pattern
+cd challenge-8-diamond-pattern
+git checkout challenge-8-diamond-pattern
 yarn install
 ```
 
@@ -86,11 +86,11 @@ Contributors have started to complain if they can actually take their money back
 
 > Start by commenting out the `return` line in the code at `02_checkpoint.ts`, this will run the script contained in this file.
 
-🔍 Inspect the code in the `02_checkpoint.ts` inside `packages/hardhat/deploy`, sepcially understand how a facet is added to the Diamond
+🔍 Inspect the code in the `02_checkpoint.ts` inside `packages/hardhat/deploy`, specially understand how a facet is added to the Diamond
 
 > At this point your contributors should be able to get the funds back by calling the `refund` function in `WithdrawFacet`
 
-> > Can you guess whats wrong here ?
+> > Can you guess whats wrong here?
 
 #### ⚔️ Checkpoint 2 side quests
 
@@ -108,7 +108,7 @@ In a crowdfunding contract, usually the contributors will be able to withdraw th
 
 ### Checkpoint 3: 💵 Claiming when goal amount has been reached
 
-Ok, so at this point your contributors can `contribute` and `withdraw` their assets when the deadline has been reached. But there should be some rules for the owner, owner can only withdraw if the goal hasnt been reached. Likewise, contributors only would be able to withdraw if the goal hasnt been reached
+Ok, so at this point your contributors can `contribute` and `withdraw` their assets when the deadline has been reached. But there should be some rules for the owner, owner can only withdraw if the goal has been reached. Likewise, contributors only would be able to withdraw if the goal hasn't been reached
 
 🔍 Inspect the code in the `ConfigFacet.sol` contract in `packages/hardhat/contracts/facets`
 
@@ -149,7 +149,7 @@ yarn hardhat:test
 
 🛰 Use a faucet to fund your **deployer address** (run `yarn account` again to view balances)
 
-> ⚠️ Make sure you fund your account with enough Eth! .05 is required to initially fund the DiceGame contract and .01 more is required to fund the riggedRoll contract. Plus a bit extra to pay the gas.
+> ⚠️ Make sure you fund your account with enough Eth! 
 
 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
 
@@ -177,6 +177,6 @@ Update the `apikey` in `packages/hardhat/package.json`. You can get your key [he
 
 > Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
 
-Copy the verified address for your RiggedRoll contract and enter that into the appropriate Etherscan testnet.
+Copy the verified address for your CrowdfundrDiamond contract and enter that into the appropriate Etherscan testnet.
 
 ---
