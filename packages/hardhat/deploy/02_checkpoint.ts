@@ -5,7 +5,7 @@ import "dotenv";
 
 const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   // TODO : Remove following line
-  return;
+  // return;
 
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
@@ -40,7 +40,7 @@ const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnviro
   }
   cDiamond = await getDiamond(["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet", "WithdrawFacet"]);
   SECONDS_IN_DAY;
-  // TODO : change the deadline
+  // TODO : change the deadline - in seconds
   const tx = await cDiamond.setDeadline(120);
   await tx.wait();
 };

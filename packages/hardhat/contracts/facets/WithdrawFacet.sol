@@ -10,7 +10,7 @@ contract WithdrawFacet {
     uint256 toSend = ds.contributionPerUser[msg.sender];
 
     // TODO : enforce check for deadline if there is any
-    // LibWithdrawFacet._enforceDeadlineReached();
+    LibWithdrawFacet._enforceDeadlineReached();
 
     // TODO : enforce goal has not been reached
     // bool hasBeenReached = LibCrowdfundr._goalHasBeenReached();
@@ -20,17 +20,6 @@ contract WithdrawFacet {
 
     payable(msg.sender).transfer(toSend);
   }
-
-  //   function claimAmount(uint256 _amount) external {
-  //     LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
-  //     LibWithdrawFacet.WithdrawStorage storage ws = LibWithdrawFacet.getStorage();
-  //     LibDiamond.enforceIsContractOwner();
-  //     require(LibCrowdfundr._goalHasBeenReached(), "WithdrawFacet: goal wasnt reached");
-  //     require(_amount <= ds.contributionAmount - ws.claimedAmount, "Not enough funds to claim");
-  //     require(_amount <= address(this).balance, "Not enough funds in the contract");
-  //     ws.claimedAmount += _amount;
-  //     payable(msg.sender).transfer(_amount);
-  //   }
 
   function setDeadline(uint256 _buffer) external {
     LibDiamond.enforceIsContractOwner();
