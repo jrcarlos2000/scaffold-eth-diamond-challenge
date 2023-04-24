@@ -5,7 +5,7 @@ import "dotenv";
 
 const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   // TODO : Remove following line
-  // return;
+  return;
 
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;

@@ -10,11 +10,11 @@ contract WithdrawFacet {
     uint256 toSend = ds.contributionPerUser[msg.sender];
 
     // TODO : enforce check for deadline if there is any
-    LibWithdrawFacet._enforceDeadlineReached();
+    // LibWithdrawFacet._enforceDeadlineReached();
 
     // TODO : enforce goal has not been reached
-    bool hasBeenReached = LibCrowdfundr._goalHasBeenReached();
-    require(!hasBeenReached, "WithdrawFacet: Cannot withdraw because goal amount has been reached");
+    // bool hasBeenReached = LibCrowdfundr._goalHasBeenReached();
+    // require(!hasBeenReached, "WithdrawFacet: Cannot withdraw because goal amount has been reached");
 
     ds.contributionPerUser[msg.sender] = 0;
 

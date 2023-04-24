@@ -8,8 +8,6 @@ contract MainFacet {
 
     LibCrowdfundr._enforceMinAmount(msg.value);
 
-    // add function that enforces deadline not to be reached
-
     ds.contributionAmount += msg.value;
     ds.contributionPerUser[msg.sender] += msg.value;
   }
@@ -17,10 +15,9 @@ contract MainFacet {
   function claim() external {
     LibDiamond.enforceIsContractOwner();
 
-    // TODO : Enforce
-
-    bool hasReached = LibCrowdfundr._goalHasBeenReached();
-    require(hasReached, "Main: goal hasnt been reached or set");
+    // TODO : Enforce goal was reached
+    // bool hasReached = LibCrowdfundr._goalHasBeenReached();
+    // require(hasReached, "Main: goal hasnt been reached or set");
 
     payable(msg.sender).transfer(address(this).balance);
   }
