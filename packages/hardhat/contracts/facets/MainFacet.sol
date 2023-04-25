@@ -16,8 +16,8 @@ contract MainFacet {
     LibDiamond.enforceIsContractOwner();
 
     // TODO : Enforce goal was reached
-    // bool hasReached = LibCrowdfundr._goalHasBeenReached();
-    // require(hasReached, "Main: goal hasnt been reached or set");
+    bool hasReached = LibCrowdfundr._goalHasBeenReached();
+    require(hasReached, "Main: goal hasnt been reached or set");
 
     payable(msg.sender).transfer(address(this).balance);
   }

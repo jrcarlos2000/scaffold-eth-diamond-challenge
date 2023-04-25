@@ -32,7 +32,7 @@ const deployContract: DeployFunction = async function (hre: HardhatRuntimeEnviro
   }
 
   // TODO  : Change this only ONE ETHER
-  const functionCall = cDiamondInit.interface.encodeFunctionData("init(uint256)", [ONE_ETHER.mul(4)]);
+  const functionCall = cDiamondInit.interface.encodeFunctionData("init(uint256)", [ONE_ETHER]);
 
   // Setting arguments that will be used in the diamond constructor
   const diamondArgs = {
