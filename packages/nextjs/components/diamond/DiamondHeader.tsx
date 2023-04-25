@@ -20,7 +20,7 @@ export const DiamondHeader = () => {
       <div className="flex">
         <div className="fixed flex items-center w-full z-20 p-4 px-8 lg:px-14 top-20 right-0 pointer-events-none justify-end">
           <div className="flex space-x-2 pointer-events-auto flex-col bg-base-100 px-6 lg:px-8 py-4 items-start text-center rounded-3xl">
-            <span className="text-sm flex flex-row align-center">
+            <span className="text-sm flex flex-row items-center">
               <span className="mr-2">
                 {" "}
                 <IoDiamondOutline />{" "}

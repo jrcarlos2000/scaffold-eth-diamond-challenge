@@ -5,7 +5,7 @@ import { ContractUI } from "~~/components/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 import { getContractNames, getMainDiamondContract } from "~~/utils/scaffold-eth/contractNames";
 
-const Debug: NextPage = () => {
+const Diamond: NextPage = () => {
   const contractNames: ContractName[] = getContractNames();
   const mainDiamondContractName: ContractName = getMainDiamondContract();
   const EIP2535Names: ContractName[] = ["DiamondCutFacet", "OwnershipFacet", "DiamondLoupeFacet"];
@@ -90,4 +90,4 @@ const Debug: NextPage = () => {
   );
 };
 
-export default Debug;
+export default Diamond;
